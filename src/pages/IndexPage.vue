@@ -34,6 +34,7 @@
           dense
           clearable
         />
+        {{ dataNascimento }}
         <q-input
           class="inputs"
           outlined
@@ -135,12 +136,11 @@ import HeaderComponent from "src/components/HeaderComponent.vue";
 import Search from "src/components/Search.vue";
 import TableComponent from "src/components/TableComponent.vue";
 import Modal from "src/components/Modal.vue";
-import { defineComponent, onMounted, ref } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 import Loader from "src/components/Loader.vue";
 import { useUserStore } from "src/stores/userStore";
 import { useCurrencyConverterStore } from "src/stores/currencyConverterStore";
 import { useQuasar } from "quasar";
-import { format } from "date-fns";
 
 export default defineComponent({
   name: "IndexPage",
@@ -173,6 +173,7 @@ export default defineComponent({
     const model = ref(null);
     const currencyStore = useCurrencyConverterStore();
     const optionsBase = ref(["BTC"]);
+    // const options = computed(() => currencyStore.currencyPairs);
     const options = ref(["BRL", "USD", "EUR"]);
     const amount = ref(null);
 
@@ -193,8 +194,8 @@ export default defineComponent({
       sobrenome.value = userData.sobrenome;
       email.value = userData.email;
       endereco.value = userData.endereco;
-      dataNascimento.value = userData.data_nascimento;
-      dataAbertura.value = userData.data_abertura;
+      dataNascimento.value = formatDateTime(userData.data_nascimento);
+      dataAbertura.value = formatDateTime(userData.data_abertura);
       enderecoCarteira.value = userData.endereco_carteira;
       valorCompra.value = userData.valor_carteira;
       id.value = userData.id;
@@ -316,6 +317,16 @@ export default defineComponent({
       }
     };
 
+    function formatDateTime(dateTimeString) {
+      const dateTime = new Date(dateTimeString);
+      const day = dateTime.getDate().toString().padStart(2, "0");
+      const month = (dateTime.getMonth() + 1).toString().padStart(2, "0");
+      const year = dateTime.getFullYear();
+
+      const formattedDateTime = `${year}-${month}-${day}`;
+      return formattedDateTime;
+    }
+
     onMounted(() => {
       isLoadingPage();
       PossibleCombinations();
@@ -345,7 +356,7 @@ export default defineComponent({
       baseCurrency,
       targetCurrency,
       convertCurrency,
-      formatDate,
+      formatDateTime,
     };
   },
 });
