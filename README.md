@@ -23,4 +23,9 @@ Para realizar o login na aplicação, utilize o email fornecido juntamente com a
 3. Navegue até o diretório do projeto.
 4. Instale as dependências do projeto executando o comando `npm install`.
 5. Execute o projeto com o comando `npm start` para iniciar json-server e o frontend.
+<<<<<<< HEAD
 6. Acesse a aplicação em seu navegador utilizando o endereço fornecido no terminal após a execução do passo anterior.
+=======
+7. Acesse a aplicação em seu navegador utilizando o endereço fornecido no terminal após a execução do passo anterior.
+
+>>>>>>> 7098eb870cad808ca70a139f9bfe76ba8efc419c
